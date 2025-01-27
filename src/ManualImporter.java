@@ -1,85 +1,89 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.List;
 
 public class ManualImporter {
-    public static List<Patron> main(List<Patron> patrons) {
-        // Scanner for user input
-        Scanner manualInputScanner = new Scanner(System.in);
+    public static List<Patron> run(Scanner scanner, List<Patron> patrons) {
+        while (true) {
+            int id = 0;
+            String name = "";
+            String address = "";
+            double fine = 0.0;
+            Patron patron;
 
-        try {
+
+            // ID
             while (true) {
-                int id = 0;
-                String name = "";
-                String address = "";
-                double fine = 0.0;
+                System.out.println("Enter patron ID or [exit] to exit:");
 
-
-                // ID
-                while (true) {
-                    System.out.println("Enter patron ID or 'exit' to exit:");
-
-                    String input = manualInputScanner.nextLine().trim();
-                    if (input == null || input.isEmpty()) {
-
-                    } else if (input.equals("exit")) {
-                        return patrons;
-                    } else {
-                        id = Integer.parseInt(input);
-                        break;
-                    }
+                String input = scanner.nextLine().trim();
+                if (input.isEmpty()) {
+                    continue;
+                } else if (input.equals("exit")) {
+                    return patrons;
                 }
 
-                // Name
-                while (true) {
-                    System.out.println("Enter patron name or 'exit' to exit:");
-
-                    String input = manualInputScanner.nextLine().trim();
-                    if (input == null || input.isEmpty()) {
-
-                    } else if (input.equals("exit")) {
-                        return patrons;
-                    } else {
-                        name = input;
-                        break;
-                    }
+                if (Main.isPatronIdUsed(patrons, id)) {
+                    System.out.println("A patron with the ID [" + id + "] already exists!");
+                    continue;
                 }
 
-                // Address
-                while (true) {
-                    System.out.println("Enter patron address or 'exit' to exit:");
-
-                    String input = manualInputScanner.nextLine().trim();
-                    if (input == null || input.isEmpty()) {
-
-                    } else if (input.equals("exit")) {
-                        return patrons;
-                    } else {
-                        address = input;
-                        break;
-                    }
-                }
-
-                // Fine
-                while (true) {
-                    System.out.println("Enter patron fine or 'exit' to exit:");
-
-                    String input = manualInputScanner.nextLine().trim();
-                    if (input == null || input.isEmpty()) {
-
-                    } else if (input.equals("exit")) {
-                        return patrons;
-                    } else {
-                        fine = Double.parseDouble(input);
-                        break;
-                    }
-                }
-
-                patrons.add(new Patron(id, name, address, fine));
+                id = Integer.parseInt(input);
+                break;
             }
-        } finally {
-            manualInputScanner.close();
+
+            // Name
+            while (true) {
+                System.out.println("Enter patron name or 'exit' to exit:");
+
+                String input = scanner.nextLine().trim();
+                if (input == null || input.isEmpty()) {
+
+                } else if (input.equals("exit")) {
+                    return patrons;
+                } else {
+                    name = input;
+                    break;
+                }
+            }
+
+            // Address
+            while (true) {
+                System.out.println("Enter patron address or 'exit' to exit:");
+
+                String input = scanner.nextLine().trim();
+                if (input == null || input.isEmpty()) {
+
+                } else if (input.equals("exit")) {
+                    return patrons;
+                } else {
+                    address = input;
+                    break;
+                }
+            }
+
+            // Fine
+            while (true) {
+                System.out.println("Enter patron fine or 'exit' to exit:");
+
+                String input = scanner.nextLine().trim();
+                if (input == null || input.isEmpty()) {
+
+                } else if (input.equals("exit")) {
+                    return patrons;
+                } else {
+                    fine = Double.parseDouble(input);
+                    break;
+                }
+            }
+
+            try {
+                patron = new Patron(id, name, address, fine);
+            } catch (Exception e) {
+                System.out.println("Patron [" + id + "] could not be created.\n" + e.getMessage());
+                continue;
+            }
+
+            patrons.add(patron);
         }
     }
 }

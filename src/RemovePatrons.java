@@ -1,34 +1,26 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.util.List;
 
 public class RemovePatrons {
-    public static List<Patron> main(List<Patron> patrons) {
+    public static List<Patron> run(Scanner scanner, List<Patron> patrons) {
+        while (true) {
+            // Options
+            System.out.println("Enter the ID of the patron you want to remove or [exit] to exit:");
 
-        // Scanner for user input
-        Scanner removeScanner = new Scanner(System.in);
+            String input = scanner.nextLine().trim();
+            if (input.isEmpty()) {
 
-        try {
-            while (true) {
-                // Options
-                System.out.println("Enter the ID of the patron you want to remove or 'exit' to exit:");
+            } else if (input.equals("exit")) {
+                return patrons;
+            }
 
-                String input = removeScanner.nextLine().trim();
-                if (input == null || input.isEmpty()) {
-
-                } else if (input.equals("exit")) {
-                    return patrons;
-                }
-
-                int id = Integer.parseInt(input);
-                for (Patron patron : patrons) {
-                    if (patron.id == id) {
-                        patrons.remove(patron);
-                    }
+            int id = Integer.parseInt(input);
+            for (Patron patron : patrons) {
+                if (patron.id == id) {
+                    System.out.println("Removing patron [" + patron.toString() + "].");
+                    patrons.remove(patron);
                 }
             }
-        } finally {
-            removeScanner.close();
         }
     }
 }

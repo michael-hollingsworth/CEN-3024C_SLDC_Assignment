@@ -1,15 +1,13 @@
 public class Patron {
     public int id;
-    public String firstName;
-    public String lastName;
     public String name;
     public String address;
     public double fine;
 
     public Patron(int id, String name, String address, double fine) {
         // Error if id is not 7 digits long
-        if (String.valueOf(id).length() != 7) {
-            throw new IllegalArgumentException("ID must be 7 characters");
+        if (String.valueOf(id).length() > 7) {
+            throw new IllegalArgumentException("ID cannot be longer than 7 characters");
         }
 
         // Error if fine is negative or greater than 250
@@ -44,8 +42,8 @@ public class Patron {
     // Setters
     public void setId(int id) {
         // Error if id is not 7 digits long
-        if (String.valueOf(id).length() != 7) {
-            throw new IllegalArgumentException("ID must be 7 characters");
+        if (String.valueOf(id).length() > 7) {
+            throw new IllegalArgumentException("ID cannot be longer than 7 characters");
         }
 
         this.id = id;
@@ -59,10 +57,10 @@ public class Patron {
     public void setFine(double fine) {
         // Error if fine is negative or greater than 250
         if (fine < 0.0) {
-            throw new IllegalArgumentException("Fine must be a number between 0.0 and 250.00");
+            throw new IllegalArgumentException("Fine must be a number between [0.0] and [250.00]");
         }
         if (fine > 250.00) {
-            throw new IllegalArgumentException("Fine must be a number between 0.0 and 250.00");
+            throw new IllegalArgumentException("Fine must be a number between [0.0] and [250.00]");
         }
 
         this.fine = fine;
@@ -71,7 +69,7 @@ public class Patron {
     // toString() override
     @Override
     public String toString() {
-        return (id + "-" + name + "-" + address + "-" + fine);
+        return (String.format("%07d", id) + "-" + name + "-" + address + "-" + fine);
     }
 
 }
