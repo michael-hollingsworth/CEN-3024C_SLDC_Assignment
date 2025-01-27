@@ -4,10 +4,10 @@ import java.util.List;
 public class ManualImporter {
     public static List<Patron> run(Scanner scanner, List<Patron> patrons) {
         while (true) {
-            int id = 0;
-            String name = "";
-            String address = "";
-            double fine = 0.0;
+            int id;
+            String name;
+            String address;
+            double fine;
             Patron patron;
 
 
@@ -22,12 +22,12 @@ public class ManualImporter {
                     return patrons;
                 }
 
+                id = Integer.parseInt(input);
                 if (Main.isPatronIdUsed(patrons, id)) {
                     System.out.println("A patron with the ID [" + id + "] already exists!");
                     continue;
                 }
 
-                id = Integer.parseInt(input);
                 break;
             }
 
@@ -36,7 +36,7 @@ public class ManualImporter {
                 System.out.println("Enter patron name or 'exit' to exit:");
 
                 String input = scanner.nextLine().trim();
-                if (input == null || input.isEmpty()) {
+                if (input.isEmpty()) {
 
                 } else if (input.equals("exit")) {
                     return patrons;
@@ -51,7 +51,7 @@ public class ManualImporter {
                 System.out.println("Enter patron address or 'exit' to exit:");
 
                 String input = scanner.nextLine().trim();
-                if (input == null || input.isEmpty()) {
+                if (input.isEmpty()) {
 
                 } else if (input.equals("exit")) {
                     return patrons;
@@ -66,7 +66,7 @@ public class ManualImporter {
                 System.out.println("Enter patron fine or 'exit' to exit:");
 
                 String input = scanner.nextLine().trim();
-                if (input == null || input.isEmpty()) {
+                if (input.isEmpty()) {
 
                 } else if (input.equals("exit")) {
                     return patrons;
